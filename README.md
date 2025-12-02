@@ -1,6 +1,5 @@
 from typing import List
 
-
 def min_platforms(weights: List[int], limit: int) -> int:
     """
     Определяет минимальное количество платформ для перевозки роботов.
