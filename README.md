@@ -12,30 +12,28 @@ def min_platforms(weights: List[int], limit: int) -> int:
         минимальное количество платформ
     """
     # Сортируем веса по возрастанию
-    weights.sort()
+
+    sorted_weights = sorted(weights)
     
-    left = 0  # указатель на самого легкого робота
-    right = len(weights) - 1  # указатель на самого тяжелого робота
-    platforms = 0
+    light_index = 0
+    heavy_index = len(sorted_weights) - 1
+    platforms_count = 0
     
-    while left <= right:
+    while light_index <= heavy_index:
         # Пытаемся посадить на одну платформу самого тяжелого и самого легкого
-        if weights[left] + weights[right] <= limit:
-            # Можем перевезти двоих
-            left += 1
-            right -= 1
-        else:
-            # Можем перевезти только тяжелого
-            right -= 1
+        if sorted_weights[light_index] + sorted_weights[heavy_index] <= limit:
+            light_index += 1
         
-        platforms += 1
-    
-    return platforms
+        # Самый тяжелый робот всегда занимает платформу
+        heavy_index -= 1
+        platforms_count += 1
+
+    return platforms_count
 
 
 if __name__ == "__main__":
     # Чтение входных данных
-    weights = list(map(int, input().strip().split()))
+    weights = [int(num) for num in input().strip().split()]
     limit = int(input().strip())
     
     # Вычисление результата
